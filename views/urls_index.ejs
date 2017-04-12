@@ -1,20 +1,18 @@
   <!DOCTYPE html>
   <html lang="en">
-  <head>
-    <title>TinyApp</title>
-  </head>
-  <body>
-
-        <%- include('partials/_header.ejs') %>
-
+    <head>
+      <title>TinyApp</title>
+    </head>
+    <body>
+      <%- include('partials/_header.ejs') %>
       <h1>URLs List</h1>
       <!-- <p> <%= urls %> </p> -->
       <ul>
-      <% for(let key in urls) { %>
-      <li><%= key %>: <%= urls[key] %></li>
-      <% } %>
+        <% for(let key in urls) { %>
+        <li><%= key %>: <%= urls[key] %></li>
+       <% } %>
       </ul>
       Click <a href="/urls/new">here</a> for URL shortening.
-  </body>
+    </body>
   </html>
 

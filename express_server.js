@@ -6,7 +6,7 @@
   app.use(bodyParser.urlencoded({extended: true}));
   app.set("view engine", "ejs")
 
-  //A function that produces a string of 6 random alphanumeric characters- random string
+  //A function that produces a string of 6 random alphanumeric characters- Used a url shortener
   function generateRandomString() {
     return Math.random().toString(36).substr(2, 6);
   }
