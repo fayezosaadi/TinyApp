@@ -39,11 +39,24 @@
   });
 
 
+  // POST Response to Update the Resourse
+  app.post("/urls/:id", (req, res) => {
+    urlDatabase[req.params.id] = req.body["longURL"];
+    res.redirect("/urls");
+    //Debugging Code
+    // console.log(req.body)
+    // console.log(req.headers);
+    // console.log(req.params);
+    // console.log(urlDatabase);
+  });
+
+
   app.get("/urls/:id", (req, res) => {
     let longURL = urlDatabase[req.params.id]
     let templateVars = { shortURL: req.params.id, longU: longURL };
     res.render("urls_show", templateVars);
   });
+
 
   app.post("/urls", (req, res) => {
     // console.log(req.body);  // debug statement to see POST parameters
@@ -55,12 +68,18 @@
   });
 
   app.get("/u/:shortURL", (req, res) => {
-    let longURL = urlDatabase[req.params.shortURL]
+    let longURL = urlDatabase[req.params.shortURL];
     if(longURL) {
       res.redirect(longURL);
     } else {
       res.status(404).send('Not found');
     }
+  });
+
+  app.post("/urls/:id/delete", (req, res) => {
+    delete urlDatabase[req.params.id];
+    res.redirect("/urls");
+    console.log(urlDatabase);
   });
 
   app.listen(PORT, () => {
