@@ -34,6 +34,12 @@
     res.render("urls_index", templateVars);
   });
 
+//Edit Redirection
+  app.get("/urls/id", (req, res) => {
+    res.redirect("/urls/new");
+  });
+
+
   app.get("/urls/new", (req, res) => {
     res.render("urls_new");
   });
@@ -79,7 +85,7 @@
   app.post("/urls/:id/delete", (req, res) => {
     delete urlDatabase[req.params.id];
     res.redirect("/urls");
-    console.log(urlDatabase);
+    // console.log(urlDatabase);
   });
 
   app.listen(PORT, () => {

@@ -10,7 +10,9 @@
       <ul>
         <% for(let key in urls) { %>
         <li> The shortened URL: <%= key %> for : <%= urls[key] %>
-        <form method="POST" action="/urls/<%=key%>/delete"><button>delete</button></form></li>
+        <form method="GET" action="/urls/<%= key %>"><button>Edit</button></form>
+        <form method="POST" action="/urls/<%=key%>/delete"><button>delete</button></form>
+        </li>
        <% } %>
       </ul>
 
