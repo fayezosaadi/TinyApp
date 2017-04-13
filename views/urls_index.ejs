@@ -1,23 +1,30 @@
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <title>TinyApp</title>
-    </head>
-    <body>
-      <%- include('partials/_header.ejs') %>
+<%- include('partials/_header.ejs') %>
       <h1>URLs List</h1>
-      <!-- <p> <%= urls %> </p> -->
-      <ul>
+      <table>
         <% for(let key in urls) { %>
-        <li> The shortened URL: <%= key %> for : <%= urls[key] %>
-        <form method="GET" action="/urls/<%= key %>"><button>Edit</button></form>
-        <form method="POST" action="/urls/<%=key%>/delete"><button>delete</button></form>
-        </li>
-       <% } %>
-      </ul>
-
-
-      Click <a href="/urls/new">here</a> for URL shortening.
+        <tr>
+          <td>
+             <a href="/u/<%= key %>">http://tapp.com/u/<%= key %> </a>
+          </td>
+          <td>
+            <%= urls[key] %>
+          </td>
+          <td>
+            <form method="GET" action="/urls/<%= key %>">
+              <button>Edit</button>
+            </form>
+          </td>
+          <td>
+            <form method="POST" action="/urls/<%=key%>/delete">
+              <button>delete</button>
+            </form>
+          </td>
+        </tr>
+        <% } %>
+      </table>
+      <div>
+         <a href="/urls/new">Creat New Tiny Link</a>
+      </div>
     </body>
   </html>
 
