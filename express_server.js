@@ -3,6 +3,8 @@
   const PORT = process.env.PORT || 8080; // default port 8080
   const bodyParser = require("body-parser");// middleware
   const cookieParser = require('cookie-parser') // middleware
+  const findUserByEmail = require('./helpers/finduserbyemail')
+  const findUserByPass = require('./helpers/matchpassword')
 
   app.use(bodyParser.urlencoded({extended: true}));
 
@@ -21,11 +23,23 @@
     "9sm5xK": "http://www.google.com"
   };
 
-
+  //Temp Users DB
+  let users = {
+    "userRandomID": {
+      id: "userRandomID",
+      email: "user@example.com",
+      password: "purple-monkey-dinosaur"
+    },
+   "user2RandomID": {
+      id: "user2RandomID",
+      email: "user2@example.com",
+      password: "dishwasher-funk"
+    }
+  }
   app.get("/", (req, res) => {
     res.redirect("/urls");
-    // res.send(req.cookies.userName);
   });
+
 
   app.get("/urls.json", (req, res) => {
     res.json(urlDatabase);
@@ -36,7 +50,7 @@
   });
 
   app.get("/urls", (req, res) => {
-    let templateVars = { urls: urlDatabase, username: req.cookies["userName"]};
+    let templateVars = { urls: urlDatabase, user: users[req.cookies.user_id]};
     res.render("urls_index", templateVars);
   });
 
@@ -47,7 +61,7 @@
 
 
   app.get("/urls/new", (req, res) => {
-    let templateVars = { username: req.cookies["userName"]};
+    let templateVars = { user: users[req.cookies.user_id]};
     res.render("urls_new", templateVars);
   });
 
@@ -61,7 +75,7 @@
 
   app.get("/urls/:id", (req, res) => {
     let longURL = urlDatabase[req.params.id]
-    let templateVars = { shortURL: req.params.id, longU: longURL, username: req.cookies["userName"]};
+    let templateVars = { shortURL: req.params.id, longU: longURL, user: users[req.cookies.user_id]};
     res.render("urls_show", templateVars);
   });
 
@@ -88,16 +102,55 @@
     res.redirect("/urls");
   });
 
-  // POST Response to User name "Cookies Test"
   app.post("/login", (req, res) => {
-    res.cookie('userName', req.body.username);
-    res.redirect('/');
+    if ( req.body.email && req.body.password ){
+      if (!findUserByEmail(users, req.body.email)){
+        res.status(403).send('this user is not registered');
+      }
+      else if (!findUserByPass(users, req.body.password)){
+        res.status(403).send('password is incorrect');
+      }
+      else {
+        let id = Object.keys(users).find(key => users[key].email === req.body.email);
+        res.cookie('user_id', id);
+        res.redirect('/');
+      }
+      }
+    else {
+      res.status(404).send('you must have an email address or password to use this service');
+    }
+
+  });
+  app.get("/login", (req, res) => {
+    res.render('urls_login');
   });
 
-  // POST Response to Delete User name "Cookies Test"
-  app.post("/logout", (req, res) => {
-    res.clearCookie('userName');
-    res.redirect('/');
+  app.get("/logout", (req, res) => {
+    res.clearCookie('user_id');
+    res.render('urls_login');
+  });
+
+  // Get response for user regestration
+  app.get("/register", (req, res) => {
+    res.render("urls_register");
+  });
+
+  // POST Response for user Registration, with the Error Massages
+  app.post("/register", (req, res) => {
+    if ( req.body.email && req.body.password ){
+      if (findUserByEmail(users, req.body.email)){
+        res.status(400).send('this user is already registered');
+      }
+      else {
+        let randomId = generateRandomString();
+        users[randomId] = {id: randomId, email: req.body.email, password: req.body.password};
+        res.cookie('user_id', randomId );
+        res.redirect('/');
+      }
+    }
+    else {
+      res.status(404).send('you must have an email address or password to use this service');
+    }
   });
 
   app.listen(PORT, () => {
