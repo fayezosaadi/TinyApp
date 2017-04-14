@@ -1,30 +1,64 @@
       <%- include('partials/_header.ejs') %>
-      <h1>URLs List</h1>
-      <table>
-        <% for(let key in urls) { %>
-        <tr>
-          <td>
-             <a href="/u/<%= key %>">http://tapp.com/u/<%= key %> </a>
-          </td>
-          <td>
-            <%= urls[key] %>
-          </td>
-          <td>
-            <form method="GET" action="/urls/<%= key %>">
-              <button>Edit</button>
-            </form>
-          </td>
-          <td>
-            <form method="POST" action="/urls/<%=key%>/delete">
-              <button>delete</button>
-            </form>
-          </td>
-        </tr>
-        <% } %>
-      </table>
+      <h1>URLs History</h1>
+
+      <% if(user) { %>
+          <table border="1" width="50%">
+            <tr>
+              <th>ShortURL</th>
+              <th>LongURL</th>
+              <th colspan="2">Actions </th>
+            </tr>
+            <% for(let key in urls) { %>
+              <tr>
+                <% if(urls[key].user_id === user.id){%>
+                  <td><%= urls[key].shortURL %></td>
+                  <td><%= urls[key].longURL %></td>
+                  <td>
+                    <form method="GET" action="/urls/<%= key %>">
+                      <button>Edit</button>
+                    </form>
+                  </td>
+                  <td>
+                    <form method="POST" action="/urls/<%=key%>/delete">
+                      <button>delete</button>
+                    </form>
+                  </td>
+              </tr>
+              <%}%> <!-- if condition -->
+            <% } %> <!-- for loop -->
+          </table>
+      <% } else {%>
+          <table border="1" width="50%">
+            <tr>
+              <th>ShortURL</th>
+              <th>LongURL</th>
+              <th colspan="2">Actions</th>
+            </tr>
+            <% for(let key in urls) { %>
+              <tr>
+                  <td><%= urls[key].shortURL %></td>
+                  <td><%= urls[key].longURL %></td>
+                  <td>
+                    <form method="GET" action="/urls/<%= key %>">
+                      <button>Edit</button>
+                    </form>
+                  </td>
+                  <td>
+                    <form method="POST" action="/urls/<%=key%>/delete">
+                      <button>delete</button>
+                    </form>
+                  </td>
+              </tr>
+            <% } %> <!-- for loop -->
+          </table>
+      <% } %>
+
       <div>
          <a href="/urls/new">Creat New Tiny Link</a>
       </div>
+
+
+
     </body>
   </html>
 

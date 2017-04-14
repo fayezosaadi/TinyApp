@@ -5,7 +5,7 @@
     </head>
     <body>
       <header>
-      <% if (user.email) { %>
+      <% if (user && user.email) { %>
         <p>You are logged in as: <%=user.email%><p>
         <form action="/logout" method="GET" ><button>Logout</button>
         </form>
