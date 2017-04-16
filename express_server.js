@@ -7,20 +7,17 @@
   const findUserByPass = require('./helpers/matchpassword')
   const bcrypt = require('bcrypt');
   app.use(bodyParser.urlencoded({extended: true}));
-
   app.use(cookieSession({
     name: 'session',
     keys: ['lighthouse'],
     maxAge: 24 * 60 * 60 * 1000
   }));
-
   app.set("view engine", "ejs")
 
   function generateRandomString() {
     return Math.random().toString(36).substr(2, 6);
   }
 
-  //URLs DB
   let urlDatabase = {};
 
   let users = {
@@ -28,7 +25,6 @@
       id: "userRandomID",
       email: "user@example.com",
       password: "purple-monkey-dinosaur"
-
     },
    "user2RandomID": {
       id: "user2RandomID",

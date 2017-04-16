@@ -1,4 +1,3 @@
-
   var findUserByEmail = function (users, pass){
     for (let k in users){
       let user = users[k];
@@ -9,4 +8,5 @@
     return null;
   }
   module.exports = findUserByEmail;
+
 
