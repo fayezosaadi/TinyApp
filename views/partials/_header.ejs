@@ -7,14 +7,18 @@
       <header>
       <% if (user && user.email) { %>
         <p>You are logged in as: <%=user.email%><p>
-        <form action="/logout" method="GET" ><button>Logout</button>
+        <form action="/logout" method="GET" >
+          <button>Logout</button>
         </form>
-      <% } %>
+         <div>
+          <a href="/urls">Mylinks</a>
+         </div>
+      <% }else{ %>
+        <div>
+          <a href="/login">Login</a>
+        </div>
+        <div>
+          <a href="/register">Register</a>
+        </div>
+        <% } %>
       </header>
-
-      <form action="/login" method="get" >
-        <button>Login</button>
-      </form>
-      <form action="/register" method="get" >
-        <button>register</button>
-      </form>

@@ -1,10 +1,9 @@
-
       <%- include('partials/_header.ejs') %>
       <h1>URL Info</h1>
-      <p> ShortURL: http://tapp.com/u/<%= shortURL %> </p>
-      <a href="/u/<%= shortURL %>">http://tapp.com/u/<%= shortURL %> </a>
+      <p> SHORT-URL - - - ><%= shortURL %> </p>
+      <a href="/u/<%= shortURL %>">http://t.ca/u/<%= shortURL %> </a>
 
-      <p><%= longU %></p>
+      <p>LONG-URL - - - ><%= longU %></p>
       <form action="/urls/<%= shortURL %>" method="POST" style="margin:150px;">
         <input id="longURL" type="text" name="longURL" placeholder=<%= longU %> style="width: 300px">
         <input type="submit" value="UPDATE">
