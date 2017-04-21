@@ -1,12 +1,21 @@
-      <%- include('partials/_header.ejs') %>
-      <h1>URL Info</h1>
-      <p> SHORT-URL - - - ><%= shortURL %> </p>
-      <a href="/u/<%= shortURL %>">http://t.ca/u/<%= shortURL %> </a>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TinyApp</title>
+  </head>
+  <body>
+  <%- include('partials/_header.ejs') %>
+  <h2 style="color: tomato; font-weight: bold ">URL Info : </h2>
+  <p style="color: tomato; font-weight: lighter;"> SHORT-URL - - - ><%= shortURL %> </p>
+  <a href="/u/<%= shortURL %>">http://t.ca/u/<%= shortURL %> </a>
+  <p style="color: tomato; font-weight: lighter; ">LONG-URL - - - ><%= longU %></p>
+  <form method="POST" action="/urls/<%= shortURL %>/delete">
+      <button>delete</button>
+  </form>
 
-      <p>LONG-URL - - - ><%= longU %></p>
-      <form action="/urls/<%= shortURL %>" method="POST" style="margin:150px;">
-        <input id="longURL" type="text" name="longURL" placeholder=<%= longU %> style="width: 300px">
-        <input type="submit" value="UPDATE">
-      </form>
+    <form action="/urls/<%= shortURL %>" method="POST" style="margin-top: 15px">
+     <input id="longURL" type="text" name="longURL" placeholder=<%= longU %> style="width: 300px">
+     <input type="submit" value="UPDATE">
+    </form>
     </body>
-  </html>
+</html>

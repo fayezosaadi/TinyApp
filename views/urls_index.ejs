@@ -1,7 +1,11 @@
-      <%- include('partials/_header.ejs') %>
-
-      <h1>URLs History</h1>
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TinyApp</title>
+  </head>
+  <body>
+    <%- include('partials/_header.ejs') %>
+    <h3>URLs History</h3>
       <% if(user) { %>
           <table border="1" width="50%">
             <tr>
@@ -57,6 +61,7 @@
          <a href="/urls/new">Creat New Tiny Link</a>
       </div>
     </body>
-  </html>
+</html>
+
 
 

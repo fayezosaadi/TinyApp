@@ -1,24 +1,18 @@
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <title>TinyApp</title>
-    </head>
-    <body>
-      <header>
-      <% if (user && user.email) { %>
-        <p>You are logged in as: <%=user.email%><p>
-        <form action="/logout" method="GET" >
-          <button>Logout</button>
-        </form>
-         <div>
-          <a href="/urls">Mylinks</a>
-         </div>
+<header>
+  <% if (user && user.email) { %>
+    <form action="/logout" method="post" >
+      <button style="border-radius: 2px; margin-bottom:2em; float: right;">Logout</button>
+    </form>
+    <h4 style="color:#487d6b;">You are logged in as: <%=user.email%></h4>
+    <div>
+    <a href="/urls" style="color: #487d6b">Mylinks</a>
+    </div>
       <% }else{ %>
-        <div>
-          <a href="/login">Login</a>
-        </div>
-        <div>
-          <a href="/register">Register</a>
-        </div>
-        <% } %>
-      </header>
+      <div>
+      <a href="/register" style="color: #487d6b; font-weight: bold; float: right;">Register</a>
+      </div>
+      <div>
+      <a href="/login" style="color: #487d6b; font-weight: bold">Login</a>
+      </div>
+    <% } %>
+</header>
